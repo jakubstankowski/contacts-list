@@ -43,6 +43,15 @@ namespace Contacts_List.Domain.Entities
         /// </summary>
         public DateTime? DateOfBirth { get; set; }
 
+        /// <summary>
+        /// Kategoria
+        /// </summary>
+        public tCategory Category { get; set; } = null!;
+
+        /// <summary>
+        /// Kategoria Id
+        /// </summary>
+        public int CategoryId { get; set; }
 
     }
 }
