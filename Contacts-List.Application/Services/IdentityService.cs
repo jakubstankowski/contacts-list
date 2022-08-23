@@ -28,9 +28,8 @@ namespace Contacts_List.Application.Services
                 new Claim(ClaimTypes.Email, user.Email),
             };
 
-            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("key"));
 
-            var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
 
             var creds = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);
 

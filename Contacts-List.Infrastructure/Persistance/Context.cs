@@ -1,10 +1,11 @@
-﻿using Contacts_List.Domain.Entities;
+﻿using Contacts_List.Application.Interfaces;
+using Contacts_List.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Contacts_List.Infrastructure.Persistance
 {
-    public class Context : IdentityDbContext
+    public class Context : IdentityDbContext, IContext
     {
 
         public Context(DbContextOptions options) : base(options)
