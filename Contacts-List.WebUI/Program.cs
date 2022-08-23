@@ -1,5 +1,5 @@
+using Contacts_List.Infrastructure;
 using Contacts_List.Infrastructure.Persistance;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -41,6 +41,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                    };
                }
                );
+
+builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 

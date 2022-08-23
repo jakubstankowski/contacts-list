@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Contacts_List.Application.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -7,16 +8,13 @@ using System.Text;
 
 namespace Contacts_List.Application.Services
 {
-    public class IdentityService
+    public class IdentityService : IIdentityService
     {
         private readonly IConfiguration _config;
-        private readonly UserManager<IdentityUser> _userManager;
 
-
-        public IdentityService(IConfiguration config,  UserManager<IdentityUser> userManager)
+        public IdentityService(IConfiguration config)
         {
             _config = config;
-            _userManager = userManager;
         }
 
         public string GenerateToken(IdentityUser user)
@@ -28,14 +26,18 @@ namespace Contacts_List.Application.Services
                 new Claim(ClaimTypes.Email, user.Email),
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenKey"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+            //var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("key"));
+
+            var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+
+            var creds = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = creds
+
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
