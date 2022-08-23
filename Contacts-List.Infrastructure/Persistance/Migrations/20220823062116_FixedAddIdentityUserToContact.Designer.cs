@@ -4,6 +4,7 @@ using Contacts_List.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Contacts_List.Infrastructure.Persistance.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20220823062116_FixedAddIdentityUserToContact")]
+    partial class FixedAddIdentityUserToContact
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,7 +64,10 @@ namespace Contacts_List.Infrastructure.Persistance.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdentityUserId")
+                    b.Property<int>("IdentityUserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdentityUserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LastName")
@@ -79,7 +84,7 @@ namespace Contacts_List.Infrastructure.Persistance.Migrations
                         .IsUnique()
                         .HasFilter("[Email] IS NOT NULL");
 
-                    b.HasIndex("IdentityUserId");
+                    b.HasIndex("IdentityUserId1");
 
                     b.ToTable("Contacts");
                 });
@@ -292,7 +297,7 @@ namespace Contacts_List.Infrastructure.Persistance.Migrations
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
-                        .HasForeignKey("IdentityUserId");
+                        .HasForeignKey("IdentityUserId1");
 
                     b.Navigation("Category");
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Contacts_List.Domain.Entities
 {
@@ -52,6 +53,11 @@ namespace Contacts_List.Domain.Entities
         /// Kategoria Id
         /// </summary>
         public int CategoryId { get; set; }
+
+        /// <summary>
+        /// Użytkownik
+        /// </summary>
+        public IdentityUser IdentityUser { get; set; } = null!;
 
     }
 }
