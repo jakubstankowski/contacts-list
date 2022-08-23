@@ -1,5 +1,9 @@
 using Contacts_List.Infrastructure.Persistance;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +21,29 @@ builder.Services.AddDbContext<Context>(
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+/*builder.Services.AddIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<Context>();*/
+
+/*builder.Services.AddDefaultIdentity<IdentityUser>()
+    .AddEntityFrameworkStores<Context>();
+*/
+/*builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(options =>
+               {
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuer = true,
+                       ValidateAudience = true,
+                       ValidateLifetime = true,
+                       ValidateIssuerSigningKey = true,
+                       ValidIssuer = builder.Configuration.GetConnectionString("Token.Key"),
+                       ValidAudience = builder.Configuration.GetConnectionString("Issuer.Key"),
+                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetConnectionString("Issuer.Key")))
+                   };
+               }
+               );*/
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,6 +56,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapControllers();
 

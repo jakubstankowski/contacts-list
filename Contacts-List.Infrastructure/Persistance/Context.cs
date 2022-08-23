@@ -15,9 +15,11 @@ namespace Contacts_List.Infrastructure.Persistance
 
         public DbSet<tCategory> Category { get; set; } = null!;
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<tContact>()
+            base.OnModelCreating(builder);
+
+            builder.Entity<tContact>()
                 .HasIndex(p => new { p.Email })
                 .IsUnique(true);
         }
