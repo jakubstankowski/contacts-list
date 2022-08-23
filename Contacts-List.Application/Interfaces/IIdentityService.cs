@@ -6,5 +6,6 @@ namespace Contacts_List.Application.Interfaces
     {
         public string GenerateToken(IdentityUser user);
 
+        public Task<bool> UserExist(string email);
     }
 }

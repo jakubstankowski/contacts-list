@@ -11,10 +11,12 @@ namespace Contacts_List.Application.Services
     public class IdentityService : IIdentityService
     {
         private readonly IConfiguration _config;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public IdentityService(IConfiguration config)
+        public IdentityService(IConfiguration config, UserManager<IdentityUser> userManager)
         {
             _config = config;
+            _userManager = userManager;
         }
 
         public string GenerateToken(IdentityUser user)
@@ -47,7 +49,18 @@ namespace Contacts_List.Application.Services
             return tokenHandler.WriteToken(token);
         }
 
-      
+        public async Task<bool> UserExist(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
 
+            if (user == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }
