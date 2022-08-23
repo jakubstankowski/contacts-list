@@ -3,7 +3,7 @@
     /// <summary>
     ///  Model rejestracji użytkownika
     /// </summary>
-    public class Register
+    public class Login
     {
         public string Email { get; set; } = null!;
 

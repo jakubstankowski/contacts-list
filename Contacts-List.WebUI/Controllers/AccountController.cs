@@ -1,7 +1,6 @@
 ﻿using Contacts_List.Application.Interfaces;
 using Contacts_List.Domain.Models.Authentication;
 using Contacts_List.Domain.Models.User;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,6 +56,34 @@ namespace Contacts_List.WebUI.Controllers
             };
 
         }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<User>> Login(Login loginModel)
+        {
+            var user = await _userManager.FindByEmailAsync(loginModel.Email);
+
+            if (user == null)
+            {
+                return Unauthorized();
+            }
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, loginModel.Password, false);
+
+            if (!result.Succeeded)
+            {
+                return Unauthorized();
+            }
+
+            _logger.LogInformation("Success login user");
+
+            return new User
+            {
+                Token = _identityService.GenerateToken(user),
+                Email = user.Email,
+            };
+
+        }
+
 
     }
 }
