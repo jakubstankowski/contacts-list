@@ -25,11 +25,6 @@ namespace Contacts_List.Domain.Entities
         public string? LastName { get; set; }
 
         /// <summary>
-        /// Nazwa wyświetlania
-        /// </summary>
-        public string? DisplayName { get; set; }
-
-        /// <summary>
         /// Email
         /// </summary>
         public string? Email { get; set; }
@@ -53,11 +48,6 @@ namespace Contacts_List.Domain.Entities
         /// Kategoria Id
         /// </summary>
         public int CategoryId { get; set; }
-
-        /// <summary>
-        /// Użytkownik
-        /// </summary>
-        public IdentityUser IdentityUser { get; set; } = null!;
 
     }
 }

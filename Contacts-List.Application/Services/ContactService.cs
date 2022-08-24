@@ -18,6 +18,7 @@ namespace Contacts_List.Application.Services
             return await (from con in _context.Contacts
                           select new Contact
                           {
+                              ContactId = con.ContactId,
                               DisplayName = $"{con.FirstName} {con.LastName}",
                               Category = con.Category.Name,
                               DateOfBirth = con.DateOfBirth,
