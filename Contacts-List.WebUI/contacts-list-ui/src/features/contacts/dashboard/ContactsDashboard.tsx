@@ -10,11 +10,10 @@ export default observer(function ContactsDashboard() {
         if ( contactsRegistry.size <= 1) loadContacts();
       }, [contactsRegistry.size, loadContacts])
 
-
     return(
         <div>
             contact!
         </div>
     )
 
-}
+})

@@ -1,8 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { Contact } from "../models/contact";
-import { ContactDetails } from "../models/contactDetails";
 
-axios.defaults.baseURL = "http://localhost:5000/api";
+axios.defaults.baseURL = "https://localhost:7104/api";
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
@@ -15,7 +14,7 @@ const requests = {
 };
 
 const Contacts = {
-  list: () => requests.get<Contact[]>("/GetAllContacts"),
+  list: () => requests.get<Contact[]>("/Contacts/GetAllContacts"),
   //   details: (id: string) => requests.get<ContactDetails>(`/activities/${id}`),
   //   create: (activity: Activity) => axios.post<void>("/activities", activity),
   //   update: (activity: Activity) =>

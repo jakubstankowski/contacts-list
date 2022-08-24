@@ -1,9 +1,10 @@
 import NavBar from "./Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "../../features/HomePage";
+import ContactsDashboard from "../../features/contacts/dashboard/ContactsDashboard";
+import ContactDetails from "../../features/contacts/details/ContactDetails";
 import { Container } from "@mui/material";
-import ContactDetails from "../../features/contacts/ContactDetails";
-import ContactDashboard from "../../features/contacts/ContactsDashboard";
+
 
 function App() {   
     return (
@@ -12,7 +13,7 @@ function App() {
         <Container>
         <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/contacts" element={<ContactDashboard />} />
+            <Route path="/contacts" element={<ContactsDashboard />} />
             <Route path="/contacts/:id" element={<ContactDetails />} />
         </Routes>
         </Container>      

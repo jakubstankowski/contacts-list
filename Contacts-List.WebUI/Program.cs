@@ -22,6 +22,13 @@ builder.Services.AddDbContext<Context>(
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins(new string[] { "http://localhost:3000", "test" });
+    });
+});
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
     .AddEntityFrameworkStores<Context>();
@@ -44,6 +51,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddInfrastructure();
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -59,5 +68,7 @@ app.UseAuthorization();
 app.UseAuthentication();
 
 app.MapControllers();
+
+app.UseCors("CorsPolicy");
 
 app.Run();

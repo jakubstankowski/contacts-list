@@ -3,7 +3,7 @@ import agent from "../api/agent";
 import { Contact } from "../models/contact";
 
 export default class ContactStore {
-  contactRegistry = new Map<string, Contact>();
+  contactsRegistry = new Map<string, Contact>();
   selectedContact: Contact | undefined = undefined;
   editMode = false;
   loading = false;
