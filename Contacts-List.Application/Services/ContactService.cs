@@ -20,6 +20,7 @@ namespace Contacts_List.Application.Services
                           {
                               DisplayName = $"{con.FirstName} {con.LastName}",
                               Category = con.Category.Name,
+                              DateOfBirth = con.DateOfBirth,
                           }).ToListAsync();
         }
     }

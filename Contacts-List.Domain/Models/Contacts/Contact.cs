@@ -14,5 +14,10 @@
         ///  Model kategoria kontaktu
         /// </summary>
         public string? Category { get; set; }
+
+        /// <summary>
+        ///  Model data urodzenia kontaktu
+        /// </summary>
+        public DateTime? DateOfBirth { get; set; }
     }
 }
