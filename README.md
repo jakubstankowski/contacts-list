@@ -1,2 +1,1 @@
 # contacts-list
-recruitment task
