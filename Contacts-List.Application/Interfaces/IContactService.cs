@@ -6,10 +6,10 @@ namespace Contacts_List.Application.Interfaces
     {
         public Task<IEnumerable<Contact>> GetAllContactsAsync();
 
-        public Task<ContactDetails> GetContactDetailsBydId(int id);
+        public Task<ContactDetails> GetContactDetailsBydIdAsync(int id);
 
-        public Task AddOrUpdateContact(ContactCreate model);
+        public Task AddOrUpdateContactAsync(ContactCreate model);
 
-        public Task DeleteContactById(int id);
+        public Task DeleteContactByIdAsync(int id);
     }
 }

@@ -14,7 +14,7 @@ namespace Contacts_List.Application.Services
             _context = context;
         }
 
-        public async Task AddOrUpdateContact(ContactCreate model)
+        public async Task AddOrUpdateContactAsync(ContactCreate model)
         {
             var dbContact = new tContact();
 
@@ -38,7 +38,7 @@ namespace Contacts_List.Application.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteContactById(int contactId)
+        public async Task DeleteContactByIdAsync(int contactId)
         {
             var contact = await _context.Contacts.Where(x => x.ContactId == contactId).FirstOrDefaultAsync();
 
@@ -63,7 +63,7 @@ namespace Contacts_List.Application.Services
                           }).ToListAsync();
         }
 
-        public async Task<ContactDetails> GetContactDetailsBydId(int id)
+        public async Task<ContactDetails> GetContactDetailsBydIdAsync(int id)
         {
             var result = await (from con in _context.Contacts
                                 where con.ContactId == id && con.IsDeleted == false

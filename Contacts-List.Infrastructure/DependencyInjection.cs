@@ -12,6 +12,7 @@ namespace Contacts_List.Infrastructure
             services.AddScoped<IContext>(provider => provider.GetService<Context>());
             services.AddScoped<IIdentityService, IdentityService>();
             services.AddScoped<IContactService, ContactService>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
             return services;
         }
