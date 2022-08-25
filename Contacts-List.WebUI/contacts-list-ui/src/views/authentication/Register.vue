@@ -85,15 +85,18 @@ export default Vue.extend({
     register() {
       this.$store
         .dispatch("REGISTER", {
-          email: this.form.email,
-          password: this.form.password,
+          form: {
+            email: this.form.email,
+            password: this.form.password,
+          },
         })
-        .then((res) => {
+        .then(() => {
           this.showAndHiddenSnackbar({
             status: true,
-            message: res.message,
+            message: "Success register",
             color: "primary",
           });
+
           setTimeout(() => {
             this.$router.push({ name: "login" });
           }, 1000);

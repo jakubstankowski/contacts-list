@@ -86,9 +86,10 @@ export default Vue.extend({
     methods: {
         login() {
             this.$store.dispatch("LOGIN", {
-                email: this.form.email,
-                password: this.form.password
-            })
+              form: {
+              email: this.form.email,
+              password: this.form.password,
+          }})
                 .then(res => {
                     this.showAndHiddenSnackbar(
                         {
@@ -97,12 +98,12 @@ export default Vue.extend({
                             color: 'primary'
                         }
                     );
-                   authService.saveAccessToken(res.tokens.accessToken);
-                     authService.saveRefreshToken(res.tokens.refreshToken);
-                     authService.saveUserDetails(res.user);
+
+                  authService.saveAccessToken(res.token);
+                  authService.saveUserDetails(res.email);
 
                      setTimeout(() => {
-                         this.$router.push({name: 'app'});
+                         this.$router.push({name: 'contacts'});
                      }, 1000);
                 })
                 .catch((err) => {

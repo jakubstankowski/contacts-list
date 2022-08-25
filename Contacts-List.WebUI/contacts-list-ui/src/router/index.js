@@ -6,22 +6,33 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Contacts",
-    component: () => import("../views/contacts/Contacts.vue"),
+    name: "home",
+    component: () => import("../views/Home.vue"),
   },
   {
-    path: "/contact/:id",
-    name: "Contacts Details",
+    path: "/contacts",
+    name: "contacts",
+    component: () => import("../views/contacts/Contacts.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/contacts/:id",
+    name: "contacts details",
     component: () => import("../views/contacts/ContactsDetails.vue"),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: "/login",
-    name: "Login",
+    name: "login",
     component: () => import("../views/authentication/Login.vue"),
   },
   {
     path: "/register",
-    name: "Register",
+    name: "register",
     component: () => import("../views/authentication/Register.vue"),
   },
 ];

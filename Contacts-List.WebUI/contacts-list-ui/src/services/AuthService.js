@@ -8,9 +8,8 @@ export default {
     localStorage.setItem("refreshToken", refreshToken);
   },
 
-  saveUserDetails(user) {
-    localStorage.setItem("userId", user.id);
-    localStorage.setItem("userRole", user.role);
+  saveUserDetails(details) {
+    localStorage.setItem("userEmail", details);
   },
   getAuthData() {
     const token = localStorage.getItem("accessToken");
@@ -28,8 +27,8 @@ export default {
   getRefreshToken() {
     return localStorage.getItem("refreshToken");
   },
-  getUserId() {
-    return localStorage.getItem("userId");
+  getUserEmail() {
+    return localStorage.getItem("userEmail");
   },
   getTokenExpirationDate(encodedToken) {
     const token = decode(encodedToken);

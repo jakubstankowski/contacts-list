@@ -73,7 +73,8 @@ namespace Contacts_List.Application.Services
                                     DisplayName = $"{con.FirstName} {con.LastName}",
                                     Category = con.Category != null ? con.Category.Name : string.Empty,
                                     DateOfBirth = con.DateOfBirth,
-                                    PhoneNumber = con.PhoneNumber
+                                    PhoneNumber = con.PhoneNumber,
+                                    Email = con.Email
                                 }).SingleOrDefaultAsync();
 
             if (result == null)

@@ -1,12 +1,13 @@
 import axios from "axios";
 import errorParser from "@/utils/error-parser";
+import consts from "@/utils/consts.js";
 
 export default {
   actions: {
-    LOGIN: (payload) => {
+    LOGIN: (context, payload) => {
       return new Promise((resolve, reject) => {
         axios
-          .post("/Account/Login", payload)
+          .post(consts.apiUrls.auth.login, payload.form)
           .then(({ data }) => {
             resolve(data);
           })
@@ -16,10 +17,11 @@ export default {
           });
       });
     },
-    REGISTER: (payload) => {
+    REGISTER: (context, payload) => {
+      console.log("payload: ", payload);
       return new Promise((resolve, reject) => {
         axios
-          .post("/Account/register", payload)
+          .post(consts.apiUrls.auth.register, payload.form)
           .then(({ data }) => {
             resolve(data);
           })

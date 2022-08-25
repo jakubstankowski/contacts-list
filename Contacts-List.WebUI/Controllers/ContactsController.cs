@@ -36,7 +36,7 @@ namespace Contacts_List.WebUI.Controllers
                 return BadRequest("Brak id kontaktu");
             }
 
-            var result = await _contactService.GetContactDetailsBydId(contactId.Value);
+            var result = await _contactService.GetContactDetailsBydIdAsync(contactId.Value);
 
             return Ok(result);
         }
@@ -47,7 +47,7 @@ namespace Contacts_List.WebUI.Controllers
         {
             try
             {
-                await _contactService.AddOrUpdateContact(model);
+                await _contactService.AddOrUpdateContactAsync(model);
             }
             catch (Exception e)
             {
@@ -59,12 +59,12 @@ namespace Contacts_List.WebUI.Controllers
         }
 
         [HttpPost]
-        [Route("DeleteCatalog/{catalogId}")]
-        public async Task<IActionResult> DeleteCatalog(int catalogId)
+        [Route("DeleteContactById/{contactId}")]
+        public async Task<IActionResult> DeleteContactById(int contactId)
         {
             try
             {
-                await _contactService.DeleteContactById(catalogId);
+                await _contactService.DeleteContactByIdAsync(contactId);
             }
             catch (Exception e)
             {

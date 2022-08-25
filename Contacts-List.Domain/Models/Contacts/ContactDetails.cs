@@ -19,5 +19,10 @@
         ///  Model numer telefonu
         /// </summary>
         public long? PhoneNumber { get; set; }
+
+        /// <summary>
+        ///  Model email
+        /// </summary>
+        public string? Email { get; set; }
     }
 }

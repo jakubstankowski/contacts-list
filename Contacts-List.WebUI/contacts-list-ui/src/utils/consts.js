@@ -1,4 +1,4 @@
-export default consts = {
+const consts = {
   apiUrls: {
     auth: {
       login: "/Account/Login",
@@ -6,7 +6,11 @@ export default consts = {
     },
     contacts: {
       getAllContacts: "/Contacts/GetAllContacts",
-      getContactsDetailsById: "Contacts/GetContactsDetailsById",
+      getContactsDetailsById: "Contacts/GetContactDetailsById/",
+      addOrUpdateContact: "Contacts/AddOrUpdateContact",
+      deleteContactById: "Contacts/DeleteContactById/",
     },
   },
 };
+
+export default consts;

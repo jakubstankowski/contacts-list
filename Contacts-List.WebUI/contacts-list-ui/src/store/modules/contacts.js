@@ -26,17 +26,13 @@ export default {
     SET_CONTACT(state, payload) {
       state.contact = payload;
     },
-    NEW_CAR(state, car) {
-      state.cars.unshift(car);
+    NEW_CONTACT(state, contact) {
+      state.contact.unshift(contact);
     },
-    REMOVE_CAR(state, id) {
-      state.cars = state.cars.filter((car) => car._id !== id);
-    },
-    RESET(state) {
-      const s = initialState();
-      Object.keys(s).forEach((key) => {
-        state[key] = s[key];
-      });
+    REMOVE_CONTACT(state, contactId) {
+      state.contact = state.contact.filter(
+        (contact) => contact.contactId !== contactId
+      );
     },
   },
   actions: {
@@ -56,9 +52,11 @@ export default {
     GET_CONTACT: (context, payload) => {
       return new Promise((resolve, reject) => {
         axios
-          .get(`cars/${payload.carId}`)
+          .get(
+            consts.apiUrls.contacts.getContactsDetailsById + payload.contactId
+          )
           .then(({ data }) => {
-            context.commit("SET_CAR", data.car);
+            context.commit("SET_CONTACT", data);
             resolve(data);
           })
           .catch((error) => {
@@ -66,12 +64,12 @@ export default {
           });
       });
     },
-    UPDATE_CAR: (context, payload) => {
+    ADD_CONTACT: (context, payload) => {
       return new Promise((resolve, reject) => {
         axios
-          .put(`cars/${payload.carId}`, payload.form)
+          .post(consts.apiUrls.contacts.AddOrUpdateContact, payload.form)
           .then(({ data }) => {
-            context.commit("SET_CAR", data.car);
+            context.commit("NEW_CONTACT", payload.form);
             resolve(data);
           })
           .catch((error) => {
@@ -79,12 +77,11 @@ export default {
           });
       });
     },
-    DELETE_CAR: (context, payload) => {
+    UPDATE_CONTACT: (context, payload) => {
       return new Promise((resolve, reject) => {
         axios
-          .delete(`cars/${payload.carId}`)
+          .post(consts.apiUrls.contacts.AddOrUpdateContact, payload.form)
           .then(({ data }) => {
-            context.commit("REMOVE_CAR", payload.carId);
             resolve(data);
           })
           .catch((error) => {
@@ -92,24 +89,18 @@ export default {
           });
       });
     },
-    ADD_CAR: (context, payload) => {
+    DELETE_CONTACT: (context, payload) => {
       return new Promise((resolve, reject) => {
         axios
-          .post(`users/${payload.userId}/cars`, payload.form)
+          .delete(consts.apiUrls.contacts.DeleteContactById + payload.contactId)
           .then(({ data }) => {
-            context.commit("NEW_CAR", data.car);
+            context.commit("REMOVE_CONTACT", payload.contactId);
             resolve(data);
           })
           .catch((error) => {
             reject(errorParser.parse(error));
           });
       });
-    },
-    RESET_CAR: (context) => {
-      context.commit("RESET", "car");
-    },
-    RESET_CARS: (context) => {
-      context.commit("RESET", "cars");
     },
   },
 };
