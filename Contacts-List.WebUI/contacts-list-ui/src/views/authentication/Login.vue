@@ -63,7 +63,6 @@ import Snackbar from "@/components/layout/Snackbar.vue";
 import {snackbarMixin} from "@/mixins/snackbarMixin";
  import authService from '@/services/AuthService';
 
-
 export default Vue.extend({
     mixins: [snackbarMixin],
     name: 'Login',
