@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Contacts_List.Infrastructure.Persistance.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20220824102603_RemoveUserFromContactEntity")]
-    partial class RemoveUserFromContactEntity
+    [Migration("20220825111037_AddInitialMigrations")]
+    partial class AddInitialMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,7 +49,7 @@ namespace Contacts_List.Infrastructure.Persistance.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactId"), 1L, 1);
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DateOfBirth")
@@ -62,6 +62,9 @@ namespace Contacts_List.Infrastructure.Persistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OthersCategory")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long?>("PhoneNumber")
@@ -284,9 +287,7 @@ namespace Contacts_List.Infrastructure.Persistance.Migrations
                 {
                     b.HasOne("Contacts_List.Domain.Entities.tCategory", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CategoryId");
 
                     b.Navigation("Category");
                 });
