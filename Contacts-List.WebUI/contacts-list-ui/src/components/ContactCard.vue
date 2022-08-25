@@ -11,7 +11,7 @@
           </v-btn>
         </v-list-item-icon>
         <v-list-item-icon>
-          <v-btn icon>
+          <v-btn icon @click="deleteContact()">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
         </v-list-item-icon>
@@ -46,5 +46,10 @@ export default {
   data: () => ({
     //
   }),
+  methods: {
+    deleteContact() {
+      this.$emit("deleteContact", this.contactId);
+    },
+  },
 };
 </script>

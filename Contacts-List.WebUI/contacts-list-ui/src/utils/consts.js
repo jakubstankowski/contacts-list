@@ -10,6 +10,9 @@ const consts = {
       addOrUpdateContact: "Contacts/AddOrUpdateContact",
       deleteContactById: "Contacts/DeleteContactById/",
     },
+    category: {
+      getAllCategory: "/Category/GetAllCategory",
+    },
   },
 };
 

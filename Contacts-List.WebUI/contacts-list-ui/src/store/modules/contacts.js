@@ -27,7 +27,7 @@ export default {
       state.contact = payload;
     },
     NEW_CONTACT(state, contact) {
-      state.contact.unshift(contact);
+      state.contacts.unshift(contact);
     },
     REMOVE_CONTACT(state, contactId) {
       state.contact = state.contact.filter(
@@ -67,9 +67,8 @@ export default {
     ADD_CONTACT: (context, payload) => {
       return new Promise((resolve, reject) => {
         axios
-          .post(consts.apiUrls.contacts.AddOrUpdateContact, payload.form)
+          .post(consts.apiUrls.contacts.addOrUpdateContact, payload.form)
           .then(({ data }) => {
-            context.commit("NEW_CONTACT", payload.form);
             resolve(data);
           })
           .catch((error) => {
@@ -80,7 +79,7 @@ export default {
     UPDATE_CONTACT: (context, payload) => {
       return new Promise((resolve, reject) => {
         axios
-          .post(consts.apiUrls.contacts.AddOrUpdateContact, payload.form)
+          .post(consts.apiUrls.contacts.addOrUpdateContact, payload.form)
           .then(({ data }) => {
             resolve(data);
           })
@@ -92,9 +91,8 @@ export default {
     DELETE_CONTACT: (context, payload) => {
       return new Promise((resolve, reject) => {
         axios
-          .delete(consts.apiUrls.contacts.DeleteContactById + payload.contactId)
+          .post(consts.apiUrls.contacts.deleteContactById + payload.contactId)
           .then(({ data }) => {
-            context.commit("REMOVE_CONTACT", payload.contactId);
             resolve(data);
           })
           .catch((error) => {

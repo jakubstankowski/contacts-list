@@ -28,7 +28,7 @@
         /// <summary>
         /// Numer kontaktowy
         /// </summary>
-        public long? PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
         /// <summary>
         /// Data urodzenia
