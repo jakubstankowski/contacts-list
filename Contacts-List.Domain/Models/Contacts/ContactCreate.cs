@@ -1,28 +1,24 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
-
-namespace Contacts_List.Domain.Entities
+﻿namespace Contacts_List.Domain.Models.Contacts
 {
     /// <summary>
-    ///  Kontakt
+    ///  Model utworzenia nowego kontaktu
     /// </summary>
-    public class tContact
+    public class ContactCreate
     {
         /// <summary>
         /// Id Kontaktu
         /// </summary>
-        [Key]
-        public int ContactId { get; set; }
-
+        public int? ContactId { get; set; }
+        
         /// <summary>
         /// Imię
         /// </summary>
         public string? FirstName { get; set; }
-
+        
         /// <summary>
         /// Nazwisko
         /// </summary>
-        public string? LastName { get; set; }
+        public string LastName { get; set; } = null!;
 
         /// <summary>
         /// Email
@@ -37,12 +33,7 @@ namespace Contacts_List.Domain.Entities
         /// <summary>
         /// Data urodzenia
         /// </summary>
-        public DateTime? DateOfBirth { get; set; }
-
-        /// <summary>
-        /// Kategoria
-        /// </summary>
-        public tCategory? Category { get; set; } = null!;
+        public DateTime DateOfBirth { get; set; }
 
         /// <summary>
         /// Kategoria Id
@@ -53,9 +44,5 @@ namespace Contacts_List.Domain.Entities
         /// Inna kategoria
         /// </summary>
         public string? OthersCategory { get; set; }
-
-
-        public bool IsDeleted { get; set; }
-
     }
 }

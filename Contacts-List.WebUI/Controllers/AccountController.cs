@@ -26,7 +26,7 @@ namespace Contacts_List.WebUI.Controllers
         }
 
 
-        [HttpPost("register")]
+        [HttpPost("Register")]
         public async Task<ActionResult<User>> Register(Register registerModel)
         {
             if (await _identityService.UserExist(registerModel.Email))
@@ -57,7 +57,7 @@ namespace Contacts_List.WebUI.Controllers
 
         }
 
-        [HttpPost("login")]
+        [HttpPost("Login")]
         public async Task<ActionResult<User>> Login(Login loginModel)
         {
             var user = await _userManager.FindByEmailAsync(loginModel.Email);

@@ -16,6 +16,11 @@ namespace Contacts_List.Infrastructure.Persistance
 
         public DbSet<tCategory> Category { get; set; } = null!;
 
+        public async Task<int> SaveChangesAsync()
+        {
+            return await base.SaveChangesAsync(new());
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

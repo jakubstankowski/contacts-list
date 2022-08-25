@@ -1,5 +1,6 @@
 import axios from "axios";
 import errorParser from "@/utils/error-parser";
+import consts from "@/utils/consts.js";
 
 function initialState() {
   return {
@@ -42,7 +43,7 @@ export default {
     GET_CONTACTS: (context) => {
       return new Promise((resolve, reject) => {
         axios
-          .get(`Contacts/GetAllContacts`)
+          .get(consts.apiUrls.contacts.getAllContacts)
           .then(({ data }) => {
             context.commit("SET_CONTACTS", data);
             resolve(data);
@@ -52,7 +53,7 @@ export default {
           });
       });
     },
-    GET_CAR: (context, payload) => {
+    GET_CONTACT: (context, payload) => {
       return new Promise((resolve, reject) => {
         axios
           .get(`cars/${payload.carId}`)

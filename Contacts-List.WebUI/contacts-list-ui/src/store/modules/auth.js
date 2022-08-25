@@ -6,7 +6,7 @@ export default {
     LOGIN: (payload) => {
       return new Promise((resolve, reject) => {
         axios
-          .post("/Account/login", payload)
+          .post("/Account/Login", payload)
           .then(({ data }) => {
             resolve(data);
           })

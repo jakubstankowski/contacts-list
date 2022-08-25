@@ -8,5 +8,7 @@ namespace Contacts_List.Application.Interfaces
         public DbSet<tContact> Contacts { get; set; }
 
         public DbSet<tCategory> Category { get; set; }
+
+        Task<int> SaveChangesAsync();
     }
 }

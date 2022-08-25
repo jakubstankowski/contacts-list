@@ -1,4 +1,5 @@
 ﻿using Contacts_List.Application.Interfaces;
+using Contacts_List.Domain.Entities;
 using Contacts_List.Domain.Models.Contacts;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,16 +14,76 @@ namespace Contacts_List.Application.Services
             _context = context;
         }
 
+        public async Task AddOrUpdateContact(ContactCreate model)
+        {
+            var dbContact = new tContact();
+
+            if (model.ContactId.HasValue && model.ContactId > 0)
+            {
+                dbContact = await _context.Contacts.SingleAsync(c => c.ContactId == model.ContactId);
+            }
+
+            dbContact.FirstName = model.FirstName;
+            dbContact.LastName = model.LastName;
+            dbContact.PhoneNumber = model.PhoneNumber;
+            dbContact.Email = model.Email;
+            dbContact.DateOfBirth = model.DateOfBirth;
+            dbContact.CategoryId = model.CategoryId;
+
+            if (!model.CategoryId.HasValue || model.ContactId == 0)
+            {
+                _context.Contacts.Add(dbContact);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteContactById(int contactId)
+        {
+            var contact = await _context.Contacts.Where(x => x.ContactId == contactId).FirstOrDefaultAsync();
+
+            if (contact == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            contact.IsDeleted = true;
+
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Contact>> GetAllContactsAsync()
         {
             return await (from con in _context.Contacts
+                          where con.IsDeleted == false
                           select new Contact
                           {
                               ContactId = con.ContactId,
                               DisplayName = $"{con.FirstName} {con.LastName}",
-                              Category =  con.Category.Name,
-                              DateOfBirth = con.DateOfBirth,
                           }).ToListAsync();
+        }
+
+        public async Task<ContactDetails> GetContactDetailsBydId(int id)
+        {
+            var result = await (from con in _context.Contacts
+                                where con.ContactId == id && con.IsDeleted == false
+                                select new ContactDetails
+                                {
+                                    ContactId = con.ContactId,
+                                    DisplayName = $"{con.FirstName} {con.LastName}",
+                                    Category = con.Category != null ? con.Category.Name : string.Empty,
+                                    DateOfBirth = con.DateOfBirth,
+                                    PhoneNumber = con.PhoneNumber
+                                }).SingleOrDefaultAsync();
+
+            if (result == null)
+            {
+                throw new ArgumentNullException();
+            }
+            else
+            {
+                return result;
+            }
         }
     }
 }

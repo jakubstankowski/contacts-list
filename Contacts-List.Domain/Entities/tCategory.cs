@@ -19,5 +19,7 @@ namespace Contacts_List.Domain.Entities
         /// </summary>
         public string Name { get; set; } = null!;
 
+
+        public bool IsDeleted { get; set; }
     }
 }
