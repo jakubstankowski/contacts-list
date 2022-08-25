@@ -39,13 +39,12 @@ export default {
     },
   },
   actions: {
-    GET_CONTACTS: () => {
+    GET_CONTACTS: (context) => {
       return new Promise((resolve, reject) => {
         axios
-          .get(`Contacts/GettAllContacts`)
+          .get(`Contacts/GetAllContacts`)
           .then(({ data }) => {
-            console.log("data: ", data);
-            //context.commit("SET_CONTACTS", data.cars);
+            context.commit("SET_CONTACTS", data);
             resolve(data);
           })
           .catch((error) => {

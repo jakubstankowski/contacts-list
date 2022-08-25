@@ -16,6 +16,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistance\Migrations\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Contacts_List.Infrastructure</RootNamespace>

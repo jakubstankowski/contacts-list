@@ -20,7 +20,7 @@ namespace Contacts_List.Application.Services
                           {
                               ContactId = con.ContactId,
                               DisplayName = $"{con.FirstName} {con.LastName}",
-                              Category = con.Category.Name,
+                              Category =  con.Category.Name,
                               DateOfBirth = con.DateOfBirth,
                           }).ToListAsync();
         }
