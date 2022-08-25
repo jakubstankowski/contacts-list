@@ -3,7 +3,7 @@ import errorParser from "@/utils/error-parser";
 
 export default {
   actions: {
-    LOGIN: ({ commit }, payload) => {
+    LOGIN: (payload) => {
       return new Promise((resolve, reject) => {
         axios
           .post("/Account/login", payload)
@@ -16,7 +16,7 @@ export default {
           });
       });
     },
-    REGISTER: ({ commit }, payload) => {
+    REGISTER: (payload) => {
       return new Promise((resolve, reject) => {
         axios
           .post("/Account/register", payload)

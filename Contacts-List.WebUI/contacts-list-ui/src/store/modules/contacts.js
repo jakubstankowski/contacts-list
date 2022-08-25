@@ -39,7 +39,7 @@ export default {
     },
   },
   actions: {
-    GET_CONTACTS: (context, payload) => {
+    GET_CONTACTS: () => {
       return new Promise((resolve, reject) => {
         axios
           .get(`Contacts/GettAllContacts`)

@@ -42,12 +42,18 @@ namespace Contacts_List.Domain.Entities
         /// <summary>
         /// Kategoria
         /// </summary>
-        public tCategory Category { get; set; } = null!;
+        public tCategory? Category { get; set; } = null!;
 
         /// <summary>
         /// Kategoria Id
         /// </summary>
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
+
+        /// <summary>
+        /// Inna kategoria
+        /// </summary>
+        public string? OthersCategory { get; set; }
+
 
     }
 }
