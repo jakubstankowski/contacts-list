@@ -1,7 +1,7 @@
 # contacts-list
 ### run frontend:
  ```
- cd Contacts-List.WebUI
+ cd Contacts-List.WebUI/contacts-list-ui
 npm install
 npm start
 
