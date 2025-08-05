@@ -40,7 +40,7 @@ namespace Contacts_List.WebUI.Controllers
 
             return Ok(result);
         }
-
+        
         [HttpPost]
         [Route("AddOrUpdateContact")]
         public async Task<IActionResult> AddOrUpdateContact(ContactCreate model)

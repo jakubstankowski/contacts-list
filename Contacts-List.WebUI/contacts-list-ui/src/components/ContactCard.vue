@@ -2,11 +2,11 @@
   <v-card class="pa-2" outlined tile>
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title v-text="displayName"></v-list-item-title>
+        <v-list-item-title v-text="fullName"></v-list-item-title>
       </v-list-item-content>
       <span v-if="manageIcons">
         <v-list-item-icon>
-          <v-btn icon>
+          <v-btn icon @click="editContact()">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
         </v-list-item-icon>
@@ -32,8 +32,13 @@
 export default {
   name: "ContactCard",
   props: {
-    displayName: {
+    firstName: {
       type: String,
+      default: "",
+    },
+    lastName: {
+      type: String,
+      default: "",
     },
     manageIcons: {
       type: Boolean,
@@ -43,12 +48,20 @@ export default {
       type: Number,
     },
   },
+  computed: {
+    fullName() {
+      return `${this.firstName} ${this.lastName}`.trim();
+    },
+  },
   data: () => ({
     //
   }),
   methods: {
     deleteContact() {
       this.$emit("deleteContact", this.contactId);
+    },
+    editContact() {
+      this.$emit("editContact", this.contactId);
     },
   },
 };

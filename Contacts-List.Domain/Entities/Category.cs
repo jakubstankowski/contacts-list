@@ -5,7 +5,7 @@ namespace Contacts_List.Domain.Entities
     /// <summary>
     ///  Kategorie kontatków
     /// </summary>
-    public class tCategory
+    public class Category
     {
         /// <summary>
         /// Id Kategorii kontaktów

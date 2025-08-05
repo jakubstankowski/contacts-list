@@ -5,9 +5,9 @@ namespace Contacts_List.Application.Interfaces
 {
     public interface IContext
     {
-        public DbSet<tContact> Contacts { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
-        public DbSet<tCategory> Category { get; set; }
+        public DbSet<Category> Category { get; set; }
 
         Task<int> SaveChangesAsync();
     }

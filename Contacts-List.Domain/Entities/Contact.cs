@@ -6,7 +6,7 @@ namespace Contacts_List.Domain.Entities
     /// <summary>
     ///  Kontakt
     /// </summary>
-    public class tContact
+    public class Contact
     {
         /// <summary>
         /// Id Kontaktu
@@ -42,7 +42,7 @@ namespace Contacts_List.Domain.Entities
         /// <summary>
         /// Kategoria
         /// </summary>
-        public tCategory? Category { get; set; } = null!;
+        public Category? Category { get; set; } = null!;
 
         /// <summary>
         /// Kategoria Id

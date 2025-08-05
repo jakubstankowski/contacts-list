@@ -30,9 +30,17 @@ export default {
       state.contacts.unshift(contact);
     },
     REMOVE_CONTACT(state, contactId) {
-      state.contact = state.contact.filter(
+      state.contacts = state.contacts.filter(
         (contact) => contact.contactId !== contactId
       );
+    },
+    UPDATE_CONTACT_IN_LIST(state, updatedContact) {
+      const index = state.contacts.findIndex(
+        (contact) => contact.contactId === updatedContact.contactId
+      );
+      if (index !== -1) {
+        state.contacts.splice(index, 1, updatedContact);
+      }
     },
   },
   actions: {
@@ -69,6 +77,7 @@ export default {
         axios
           .post(consts.apiUrls.contacts.addOrUpdateContact, payload.form)
           .then(({ data }) => {
+            context.commit("NEW_CONTACT", data);
             resolve(data);
           })
           .catch((error) => {
@@ -81,6 +90,7 @@ export default {
         axios
           .post(consts.apiUrls.contacts.addOrUpdateContact, payload.form)
           .then(({ data }) => {
+            context.commit("UPDATE_CONTACT_IN_LIST", data);
             resolve(data);
           })
           .catch((error) => {
@@ -93,6 +103,7 @@ export default {
         axios
           .post(consts.apiUrls.contacts.deleteContactById + payload.contactId)
           .then(({ data }) => {
+            context.commit("REMOVE_CONTACT", payload.contactId);
             resolve(data);
           })
           .catch((error) => {

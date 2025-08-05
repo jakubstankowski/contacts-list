@@ -13,7 +13,7 @@
           :key="i"
           class="pa-2"
         >
-          <ContactCard :displayName="item.displayName" />
+          <ContactCard :firstName="item.firstName" :lastName="item.lastName" />
         </v-col>
       </v-row>
     </v-container>

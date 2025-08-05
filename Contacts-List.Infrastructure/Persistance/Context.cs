@@ -12,9 +12,9 @@ namespace Contacts_List.Infrastructure.Persistance
         {
         }
 
-        public DbSet<tContact> Contacts { get; set; } = null!;
+        public DbSet<Contact> Contacts { get; set; } = null!;
 
-        public DbSet<tCategory> Category { get; set; } = null!;
+        public DbSet<Category> Category { get; set; } = null!;
 
         public async Task<int> SaveChangesAsync()
         {
@@ -25,7 +25,7 @@ namespace Contacts_List.Infrastructure.Persistance
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<tContact>()
+            builder.Entity<Contact>()
                 .HasIndex(p => new { p.Email })
                 .IsUnique(true);
         }

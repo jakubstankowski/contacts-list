@@ -2,6 +2,7 @@
 using Contacts_List.Domain.Entities;
 using Contacts_List.Domain.Models.Contacts;
 using Microsoft.EntityFrameworkCore;
+using Contact = Contacts_List.Domain.Entities.Contact;
 
 namespace Contacts_List.Application.Services
 {
@@ -16,7 +17,7 @@ namespace Contacts_List.Application.Services
 
         public async Task AddOrUpdateContactAsync(ContactCreate model)
         {
-            var dbContact = new tContact();
+            var dbContact = new Contact();
 
             if (model.ContactId.HasValue && model.ContactId > 0)
             {
@@ -52,14 +53,15 @@ namespace Contacts_List.Application.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Contact>> GetAllContactsAsync()
+        public async Task<IEnumerable<Domain.Models.Contacts.Contact>> GetAllContactsAsync()
         {
             return await (from con in _context.Contacts
                           where con.IsDeleted == false
-                          select new Contact
+                          select new Domain.Models.Contacts.Contact
                           {
                               ContactId = con.ContactId,
-                              DisplayName = $"{con.FirstName} {con.LastName}",
+                              FirstName = con.FirstName,
+                              LastName = con.LastName
                           }).ToListAsync();
         }
 
@@ -70,7 +72,8 @@ namespace Contacts_List.Application.Services
                                 select new ContactDetails
                                 {
                                     ContactId = con.ContactId,
-                                    DisplayName = $"{con.FirstName} {con.LastName}",
+                                    FirstName =  con.FirstName,
+                                    LastName =  con.LastName,
                                     Category = con.Category != null ? con.Category.Name : string.Empty,
                                     DateOfBirth = con.DateOfBirth,
                                     PhoneNumber = con.PhoneNumber,

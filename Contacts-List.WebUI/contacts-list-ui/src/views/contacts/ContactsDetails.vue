@@ -12,7 +12,7 @@
             src="https://cdn.vuetifyjs.com/images/lists/1.jpg"
             height="200px"
           ></v-img>
-          <v-card-title> {{ CONTACT.displayName }}</v-card-title>
+          <v-card-title> {{ CONTACT.firstName }} {{ CONTACT.lastName }}</v-card-title>
           <v-card-subtitle> Category: {{ CONTACT.category }} </v-card-subtitle>
           <v-card-subtitle> Email: {{ CONTACT.email }} </v-card-subtitle>
           <v-card-subtitle>

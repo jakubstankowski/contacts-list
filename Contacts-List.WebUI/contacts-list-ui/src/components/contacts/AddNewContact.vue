@@ -2,7 +2,7 @@
   <v-card>
     <v-toolbar dark color="primary">
       <v-toolbar-title>
-        <span class="font-weight-light"> Add New Car </span>
+        <span class="font-weight-light"> Add New Contact </span>
       </v-toolbar-title>
       <v-spacer />
       <v-btn @click="closeDialog" icon dark>
@@ -10,53 +10,54 @@
       </v-btn>
     </v-toolbar>
     <v-container>
-      <v-form ref="form" v-model="carForm.valid">
+      <v-form ref="form" v-model="contactForm.valid">
         <v-row class="mx-2">
           <v-col cols="12" sm="6" md="6">
             <v-text-field
-              v-model="carForm.brand"
-              ref="brand"
-              label="Brand"
+              v-model="contactForm.firstName"
+              ref="firstName"
+              label="First Name"
               required
-              :rules="carFormOptions.brandRules"
+              :rules="contactFormOptions.firstNameRules"
             />
           </v-col>
           <v-col cols="12" sm="6" md="6">
             <v-text-field
-              v-model="carForm.model"
-              ref="model"
-              label="Model"
+              v-model="contactForm.lastName"
+              ref="lastName"
+              label="Last Name"
               required
-              :rules="carFormOptions.modelRules"
+              :rules="contactFormOptions.lastNameRules"
             />
           </v-col>
           <v-col cols="12" sm="6" md="6">
             <v-text-field
-              v-model="carForm.year"
-              ref="year"
-              label="Year"
-              type="number"
+              v-model="contactForm.email"
+              ref="email"
+              label="Email"
+              type="email"
               required
-              :rules="carFormOptions.yearRules"
+              :rules="contactFormOptions.emailRules"
+            />
+          </v-col>
+          <v-col cols="12" sm="6" md="6">
+            <v-text-field
+              v-model="contactForm.phoneNumber"
+              ref="phoneNumber"
+              label="Phone Number"
+              required
+              :rules="contactFormOptions.phoneNumberRules"
             />
           </v-col>
           <v-col cols="12" sm="6" md="6">
             <v-select
-              v-model="carForm.status"
-              :items="['transport', 'services', 'sale']"
-              label="Status"
+              v-model="contactForm.categoryId"
+              :items="categories"
+              item-text="name"
+              item-value="categoryId"
+              label="Category"
               required
-              :rules="carFormOptions.statusRules"
-            />
-          </v-col>
-          <v-col cols="12" sm="6" md="6">
-            <v-text-field
-              v-model="carForm.buyPrice"
-              ref="year"
-              label="Buy Price"
-              required
-              type="number"
-              :rules="carFormOptions.buyPriceRules"
+              :rules="contactFormOptions.categoryRules"
             />
           </v-col>
           <v-col cols="12" sm="6" md="6">
@@ -64,54 +65,40 @@
               ref="datePicker"
               v-model="datePicker"
               :close-on-content-click="false"
-              :return-value.sync="carForm.date"
+              :return-value.sync="contactForm.dateOfBirth"
               transition="scale-transition"
               offset-y
               min-width="290px"
             >
               <template v-slot:activator="{ on }">
                 <v-text-field
-                  v-model="carForm.date"
-                  label="Buy Date"
+                  v-model="contactForm.dateOfBirth"
+                  label="Date of Birth"
                   required
                   readonly
                   v-on="on"
+                  :rules="contactFormOptions.dateOfBirthRules"
                 />
               </template>
               <v-date-picker
                 color="primary"
-                v-model="carForm.date"
-                locale="pl"
+                v-model="contactForm.dateOfBirth"
                 no-title
                 scrollable
               >
                 <v-spacer />
-                <v-btn text color="primary" @click="datePicker = false"
-                  >Cancel</v-btn
-                >
+                <v-btn text color="primary" @click="datePicker = false">
+                  Cancel
+                </v-btn>
                 <v-btn
                   text
                   color="primary"
-                  @click="$refs.datePicker.save(carForm.date)"
-                  >OK</v-btn
+                  @click="$refs.datePicker.save(contactForm.dateOfBirth)"
                 >
+                  OK
+                </v-btn>
               </v-date-picker>
             </v-menu>
-          </v-col>
-          <v-col cols="12" sm="6" md="6">
-            <v-text-field
-              v-model="carForm.actuallSellPrice"
-              ref="year"
-              type="number"
-              label="Actuall Sell Price (optional)"
-            />
-          </v-col>
-          <v-col cols="12" sm="6" md="6">
-            <v-text-field
-              v-model="carForm.imageUrl"
-              type="text"
-              label="Image Url (optional)"
-            />
           </v-col>
         </v-row>
       </v-form>
@@ -121,8 +108,8 @@
       <v-spacer />
       <v-btn text color="secondary" @click="closeDialog">Cancel </v-btn>
       <v-btn
-        :disabled="!carForm.valid"
-        @click="addNewCar"
+        :disabled="!contactForm.valid"
+        @click="addNewContact"
         color="secondary"
         text
       >
@@ -133,59 +120,74 @@
 </template>
 
 <script lang="js">
-import authService from "@/services/AuthService";
+import { mapGetters } from "vuex";
 
 const form = {
-    brand: '',
-    model: '',
-    year: '',
-    status: '',
-    buyPrice: '',
-    actuallSellPrice: '',
-    date: new Date().toISOString().substr(0, 10),
-    imageUrl: ''
+    contactId: 0,
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    categoryId: null,
+    dateOfBirth: new Date().toISOString().substr(0, 10)
 };
-export default {
 
-    name: 'create-new-car',
+export default {
+    name: 'add-new-contact',
     props: {},
+    computed: {
+        ...mapGetters(["CATEGORY"]),
+        categories() {
+            return this.CATEGORY || [];
+        }
+    },
     data() {
         return {
             datePicker: false,
-            carFormOptions: {
-                brandRules: [
-                    v => !!v || 'Brand is required',
+            contactFormOptions: {
+                firstNameRules: [
+                    v => !!v || 'First name is required',
                 ],
-                modelRules: [
-                    v => !!v || 'Model is required',
+                lastNameRules: [
+                    v => !!v || 'Last name is required',
                 ],
-                yearRules: [
-                    v => !!v || 'Year is required',
+                emailRules: [
+                    v => !!v || 'Email is required',
+                    v => /.+@.+\..+/.test(v) || 'Email must be valid'
                 ],
-                buyPriceRules: [
-                    v => !!v || 'Buy Prices is required',
+                phoneNumberRules: [
+                    v => !!v || 'Phone number is required',
                 ],
-                statusRules: [
-                    v => !!v || 'Status is required',
+                categoryRules: [
+                    v => !!v || 'Category is required',
+                ],
+                dateOfBirthRules: [
+                    v => !!v || 'Date of birth is required',
                 ]
             },
-            carForm: Object.assign({}, form),
+            contactForm: Object.assign({}, form),
         }
     },
     methods: {
-        addNewCar() {
-            this.$store.dispatch("ADD_CAR", {userId: authService.getUserId(), form: this.carForm})
+        addNewContact() {
+            this.$store.dispatch("ADD_CONTACT", { form: this.contactForm })
                 .then(() => {
                     this.closeDialog();
+                    this.$store.dispatch("GET_CONTACTS");
                 })
-
+                .catch((error) => {
+                    console.error("Error adding contact:", error);
+                });
         },
         closeDialog() {
-            this.$emit('closeDialog', 'createCar');
+            this.$emit('closeDialog', 'createContact');
             this.resetForm();
         },
         resetForm() {
-            this.$refs.form.reset();
+            this.contactForm = Object.assign({}, form);
+            if (this.$refs.form) {
+                this.$refs.form.reset();
+            }
         },
     },
 }
