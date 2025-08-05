@@ -9,7 +9,7 @@
     </div>
 
     <!-- Form Section -->
-    <v-container>
+    <v-container id="form">
       <v-card class="pa-6 elevation-3 rounded-lg">
         <v-card-title class="text-h5 font-weight-bold">
           {{ isEditing ? 'Edit Contact' : 'Add New Contact' }}
@@ -301,6 +301,13 @@ export default {
             status: true,
             message: "Contact loaded for editing",
             color: "info",
+          });
+
+          this.$nextTick(() => {
+            const formElement = document.getElementById("contact-form-section");
+            if (formElement) {
+              formElement.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
           });
         }
       } catch (err) {

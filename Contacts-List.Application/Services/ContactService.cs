@@ -75,6 +75,7 @@ namespace Contacts_List.Application.Services
                                     FirstName =  con.FirstName,
                                     LastName =  con.LastName,
                                     Category = con.Category != null ? con.Category.Name : string.Empty,
+                                    CategoryId = con.CategoryId,
                                     DateOfBirth = con.DateOfBirth,
                                     PhoneNumber = con.PhoneNumber,
                                     Email = con.Email
