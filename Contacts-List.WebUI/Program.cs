@@ -1,3 +1,4 @@
+using Contacts_List.Domain.Entities;
 using Contacts_List.Infrastructure;
 using Contacts_List.Infrastructure.Persistance;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -53,7 +54,50 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<Context>();
     db.Database.Migrate(); // Applies migrations automatically
+
+    // --- Seed Categories ---
+    if (!db.Category.Any())
+    {
+        var categories = new List<Category>
+        {
+            new() { Name = "Rodzina" },
+            new() { Name = "Przyjaciele" },
+            new() { Name = "Praca" },
+            new() { Name = "Inne" }
+        };
+        db.Category.AddRange(categories);
+        db.SaveChanges();
+    }
+
+    // --- Seed Contacts ---
+    if (!db.Contacts.Any())
+    {
+        var random = new Random();
+        var categories = db.Category.ToList();
+
+        var contacts = new List<Contact>();
+
+        for (int i = 0; i < 20; i++)
+        {
+            var category = categories[random.Next(categories.Count)];
+            contacts.Add(new Contact
+            {
+                FirstName = $"Jan{i}",
+                LastName = $"Kowalski{i}",
+                Email = $"user{i}@example.com",
+                PhoneNumber = $"123-456-78{i:D2}",
+                DateOfBirth = DateTime.Now.AddYears(-random.Next(18, 50)).AddDays(random.Next(0, 365)),
+                CategoryId = category.CategoryId,
+                IsDeleted = false
+            });
+        }
+
+        db.Contacts.AddRange(contacts);
+        db.SaveChanges();
+    }
 }
+
+app.Run();
 
 
 // Configure the HTTP request pipeline.
