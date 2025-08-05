@@ -3,6 +3,7 @@ using Contacts_List.Infrastructure;
 using Contacts_List.Infrastructure.Persistance;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -53,7 +54,21 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<Context>();
-    db.Database.Migrate(); // Applies migrations automatically
+
+    var connection = db.Database.GetDbConnection();
+    var databaseName = connection.Database;
+
+    using (var masterConnection = new SqlConnection(connection.ConnectionString.Replace(databaseName, "master")))
+    {
+        masterConnection.Open();
+        using (var command = masterConnection.CreateCommand())
+        {
+            command.CommandText = $"IF DB_ID('{databaseName}') IS NULL CREATE DATABASE [{databaseName}]";
+            command.ExecuteNonQuery();
+        }
+    }
+
+    db.Database.Migrate();
 
     // --- Seed Categories ---
     if (!db.Category.Any())
