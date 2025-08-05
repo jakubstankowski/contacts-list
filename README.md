@@ -8,7 +8,7 @@ npm start
 ```
 ### run backend:
 
-connect to database, change connection string inside appsettings.json
+connect to database, change connection string inside appsettings.json, migration shoud be automaticly after start project
 
 ### build frontend with command:
 ``` npm run build ```
