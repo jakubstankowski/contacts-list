@@ -5,24 +5,14 @@
     /// </summary>
     public class ContactDetails : Contact
     {
-        /// <summary>
-        ///  Model kategoria kontaktu
-        /// </summary>
         public string? Category { get; set; }
 
-        /// <summary>
-        ///  Model data urodzenia kontaktu
-        /// </summary>
+        public int? CategoryId { get; set; }
+        
         public DateTime? DateOfBirth { get; set; }
-
-        /// <summary>
-        ///  Model numer telefonu
-        /// </summary>
+        
         public string? PhoneNumber { get; set; }
-
-        /// <summary>
-        ///  Model email
-        /// </summary>
+        
         public string? Email { get; set; }
     }
 }
